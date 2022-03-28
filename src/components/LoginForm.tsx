@@ -19,36 +19,37 @@ export const LoginForm = (props: Props) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    axios
-      .post("http://localhost:5000/login", {
-        username: username,
-        password: password,
-      })
-      .then((res) => {
-        const data: { [key: string]: boolean } = res.data;
-        if (res.status == 200 && res.statusText === "OK") {
-          if (data.userExists && data.passWordValid) {
-            // Successful login
-            alert("Login successful!");
+    if (username && password) {
+      axios
+        .post("http://localhost:5000/login", {
+          username: username,
+          password: password,
+        })
+        .then((res) => {
+          const data: { [key: string]: boolean } = res.data;
+          if (res.status == 200 && res.statusText === "OK") {
+            if (data.userExists && data.passWordValid) {
+              // Successful login
+              alert("Login successful!");
+            }
+            if (data.userExists && !data.passWordValid) {
+              // Failed login
+              alert("Wrong password!");
+            }
+            if (!data.userExists) {
+              // User does not exist
+              alert("User does not exist!");
+            }
           }
-          if (data.userExists && !data.passWordValid) {
-            // Failed login
-            alert("Wrong password!");
-          }
-          if (!data.userExists) {
-            // User does not exist
-            alert("User does not exist!");
-          }
-        }
-      })
-      .catch((error) => {
-        // Fail
-        console.log(error);
-      })
-      .finally(() => {
-        // Finally
-      });
+        })
+        .catch((error) => {
+          // Fail
+          console.log(error);
+        })
+        .finally(() => {
+          // Finally
+        });
+    }
   };
 
   const handleChange = (e: React.KeyboardEvent) => {
