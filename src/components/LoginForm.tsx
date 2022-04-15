@@ -1,5 +1,5 @@
 import React from "react";
-import { FormEventHandler, useRef, useState } from "react";
+import { useRef } from "react";
 
 import axios from "axios";
 
@@ -32,7 +32,7 @@ export const LoginForm = (props: Props) => {
               // Successful login
               document.cookie = "accessToken=" + data.accessToken;
               alert(
-                "Login successful!\n\n" + `Access token:\n\n${data.accessToken}`
+                `Login successful!\n\nAccess token:\n\n${data.accessToken}`
               );
             }
             if (data.userExists && !data.passWordValid) {
