@@ -27,10 +27,13 @@ export const LoginForm = (props: Props) => {
         })
         .then((res) => {
           const data: { [key: string]: boolean } = res.data;
-          if (res.status == 200 && res.statusText === "OK") {
+          if (res.status === 200 && res.statusText === "OK") {
             if (data.userExists && data.passWordValid) {
               // Successful login
-              alert("Login successful!");
+              document.cookie = "accessToken=" + data.accessToken;
+              alert(
+                "Login successful!\n\n" + `Access token:\n\n${data.accessToken}`
+              );
             }
             if (data.userExists && !data.passWordValid) {
               // Failed login
