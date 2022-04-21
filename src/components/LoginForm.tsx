@@ -10,7 +10,7 @@ interface Form {
   password?: string;
 }
 
-export const LoginForm = (props: Props) => {
+export const ProfitCalculator = (props: Props) => {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 

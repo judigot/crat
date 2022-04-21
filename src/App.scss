@@ -36,3 +36,27 @@
     transform: rotate(360deg);
   }
 }
+
+#profit {
+  text-align: center;
+  zoom: 400%;
+}
+
+table {
+  zoom: 70%;
+}
+
+th,
+td {
+  padding: 10px;
+  border: 1px solid white;
+  border-radius: 5%;
+}
+
+td {
+  font-weight: bold;
+}
+
+th {
+  text-transform: capitalize;
+}
