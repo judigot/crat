@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.scss";
-import { LoginForm } from "./components/LoginForm";
+import Component from "./components/Component";
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>
-    <LoginForm />
+    <Component />
   </React.StrictMode>,
   document.getElementById("root")
 );
