@@ -11,8 +11,8 @@ interface Form {
 }
 
 export const LoginForm = (props: Props) => {
-  const usernameRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
+  const usernameRef = useRef<HTMLInputElement>(null!);
+  const passwordRef = useRef<HTMLInputElement>(null!);
 
   const [username, setUsername] = React.useState<Form["username"]>();
   const [password, setPassword] = React.useState<Form["password"]>();
@@ -56,8 +56,8 @@ export const LoginForm = (props: Props) => {
   };
 
   const handleChange = (e: React.KeyboardEvent) => {
-    const usernameVal: Form["username"] = usernameRef.current?.value;
-    const passwordVal: Form["password"] = passwordRef.current?.value;
+    const usernameVal: Form["username"] = usernameRef.current.value;
+    const passwordVal: Form["password"] = passwordRef.current.value;
     setUsername(usernameVal);
     setPassword(passwordVal);
   };
