@@ -16,6 +16,7 @@ export const LoginForm = (props: Props) => {
 
   const [username, setUsername] = React.useState<Form["username"]>();
   const [password, setPassword] = React.useState<Form["password"]>();
+  const [message, setMessage] = React.useState<string>("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,17 +32,17 @@ export const LoginForm = (props: Props) => {
             if (data.userExists && data.passWordValid) {
               // Successful login
               document.cookie = "accessToken=" + data.accessToken;
-              alert(
+              setMessage(
                 `Login successful!\n\nAccess token:\n\n${data.accessToken}`
               );
             }
             if (data.userExists && !data.passWordValid) {
               // Failed login
-              alert("Wrong password!");
+              setMessage("Wrong password!");
             }
             if (!data.userExists) {
               // User does not exist
-              alert("User does not exist!");
+              setMessage("User does not exist!");
             }
           }
         })
@@ -71,6 +72,7 @@ export const LoginForm = (props: Props) => {
       >
         <label>Username</label>
         <input
+          required
           ref={usernameRef}
           onKeyUp={(e) => {
             handleChange(e);
@@ -81,6 +83,7 @@ export const LoginForm = (props: Props) => {
 
         <label>Password</label>
         <input
+          required
           ref={passwordRef}
           onKeyUp={(e) => {
             handleChange(e);
@@ -89,6 +92,7 @@ export const LoginForm = (props: Props) => {
           name="password"
         />
         <button type="submit">Login</button>
+        {message && <p>{message}</p>}
       </form>
     </div>
   );
