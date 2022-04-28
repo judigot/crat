@@ -3,20 +3,28 @@ import { useRef } from "react";
 
 import axios from "axios";
 
-interface Props {}
+import { Navigate } from "react-router-dom";
+
+interface Props {
+  payload?: any;
+}
 
 interface Form {
   username?: string;
   password?: string;
 }
 
-export const LoginForm = (props: Props) => {
+const LoginForm = (props: Props) => {
   const usernameRef = useRef<HTMLInputElement>(null!);
   const passwordRef = useRef<HTMLInputElement>(null!);
 
   const [username, setUsername] = React.useState<Form["username"]>();
   const [password, setPassword] = React.useState<Form["password"]>();
   const [message, setMessage] = React.useState<string>("");
+
+  if (props.payload?.isAuth) {
+    return <Navigate to="/user" replace />;
+  }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,9 +40,7 @@ export const LoginForm = (props: Props) => {
             if (data.userExists && data.passWordValid) {
               // Successful login
               document.cookie = "accessToken=" + data.accessToken;
-              setMessage(
-                `Login successful!\n\nAccess token:\n\n${data.accessToken}`
-              );
+              window.location.reload();
             }
             if (data.userExists && !data.passWordValid) {
               // Failed login
@@ -97,3 +103,5 @@ export const LoginForm = (props: Props) => {
     </div>
   );
 };
+
+export default LoginForm;
