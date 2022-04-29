@@ -5,29 +5,53 @@ import LoginForm from "./components/LoginForm";
 import User from "./components/User";
 import reportWebVitals from "./reportWebVitals";
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Authentication from "./utils/Authentication";
 
 (async () => {
-  const isAuth:
+  const auth:
     | void
     | {
         isAuth: boolean;
-        user: string;
+        userData: string;
       }
     | {
         isAuth: boolean;
-        user?: undefined;
+        userData?: undefined;
       }
     | undefined = await Authentication();
 
   ReactDOM.createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <Routes>
-        <Route path="/*" element={<LoginForm payload={isAuth} />} />
-        <Route path="/login" element={<LoginForm payload={isAuth} />} />
-        <Route path="/user" element={<User payload={isAuth} />} />
+        <Route
+          path="/login"
+          element={
+            auth?.isAuth ? <Navigate to="/user" replace /> : <LoginForm />
+          }
+        />
+        <Route
+          path="/user"
+          element={
+            !auth?.isAuth ? (
+              <Navigate to="/login" replace />
+            ) : (
+              <User payload={auth.userData} />
+            )
+          }
+        />
+
+        <Route path="/dashboard" element={<h1>Dashboard</h1>} />
+
+        {/*=====404=====*/}
+        <Route
+          path="/*"
+          element={
+            auth?.isAuth ? <User payload={auth.userData} /> : <LoginForm />
+          }
+        />
+        {/*=====404=====*/}
       </Routes>
     </BrowserRouter>
   );

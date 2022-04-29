@@ -1,16 +1,11 @@
 import axios from "axios";
-import { Navigate } from "react-router-dom";
 
 interface Props {
-  payload?: any;
+  payload?: { [key: string]: string };
 }
 
 const User = (props: Props) => {
-  if (!props.payload?.isAuth) {
-    return <Navigate to="/login" replace />;
-  }
-
-  const user = props.payload.userData;
+  const user = props.payload;
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -48,7 +43,7 @@ const User = (props: Props) => {
 
   return (
     <>
-      <h1>Welcome back, {user.username}</h1>
+      <h1>Welcome back, {user?.username}</h1>
       <form
         onSubmit={(e) => {
           handleSubmit(e);

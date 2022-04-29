@@ -3,11 +3,7 @@ import { useRef } from "react";
 
 import axios from "axios";
 
-import { Navigate } from "react-router-dom";
-
-interface Props {
-  payload?: any;
-}
+interface Props {}
 
 interface Form {
   username?: string;
@@ -21,10 +17,6 @@ const LoginForm = (props: Props) => {
   const [username, setUsername] = React.useState<Form["username"]>();
   const [password, setPassword] = React.useState<Form["password"]>();
   const [message, setMessage] = React.useState<string>("");
-
-  if (props.payload?.isAuth) {
-    return <Navigate to="/user" replace />;
-  }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
