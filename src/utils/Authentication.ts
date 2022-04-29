@@ -60,4 +60,4 @@ const auth: () => Promise<
     });
 };
 
-export const isAuth = auth();
+export default auth;

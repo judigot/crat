@@ -7,10 +7,10 @@ import reportWebVitals from "./reportWebVitals";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { isAuth } from "./authentication";
+import Authentication from "./utils/Authentication";
 
-void (async function () {
-  const auth:
+(async () => {
+  const isAuth:
     | void
     | {
         isAuth: boolean;
@@ -20,14 +20,14 @@ void (async function () {
         isAuth: boolean;
         user?: undefined;
       }
-    | undefined = await isAuth;
+    | undefined = await Authentication();
 
   ReactDOM.createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <Routes>
-        <Route path="/*" element={<LoginForm payload={auth} />} />
-        <Route path="/login" element={<LoginForm payload={auth} />} />
-        <Route path="/user" element={<User payload={auth} />} />
+        <Route path="/*" element={<LoginForm payload={isAuth} />} />
+        <Route path="/login" element={<LoginForm payload={isAuth} />} />
+        <Route path="/user" element={<User payload={isAuth} />} />
       </Routes>
     </BrowserRouter>
   );
