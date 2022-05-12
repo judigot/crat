@@ -27,7 +27,7 @@ const User = (props: Props) => {
           status: number;
           statusText: string;
         }) => {
-          const data: { [key: string]: boolean } = res.data;
+          // const data: { [key: string]: boolean } = res.data;
           if (res.status === 200 && res.statusText === "OK") {
             localStorage.removeItem("accessToken");
             window.location.reload();
