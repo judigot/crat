@@ -65,7 +65,13 @@ const LoginForm = (props: Props) => {
         }}
       >
         <label>Username</label>
-        <input required ref={usernameRef} type="text" name="username" />
+        <input
+          autoFocus
+          required
+          ref={usernameRef}
+          type="text"
+          name="username"
+        />
 
         <label>Password</label>
         <input required ref={passwordRef} type="password" name="password" />
