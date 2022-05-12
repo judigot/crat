@@ -14,12 +14,15 @@ const LoginForm = (props: Props) => {
   const usernameRef = useRef<HTMLInputElement>(null!);
   const passwordRef = useRef<HTMLInputElement>(null!);
 
-  const [username, setUsername] = React.useState<Form["username"]>();
-  const [password, setPassword] = React.useState<Form["password"]>();
   const [message, setMessage] = React.useState<string>("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Get form values
+    const username: Form["username"] = usernameRef.current.value;
+    const password: Form["password"] = passwordRef.current.value;
+
     if (username && password) {
       axios
         .post("http://localhost:5000/login", {
@@ -54,13 +57,6 @@ const LoginForm = (props: Props) => {
     }
   };
 
-  const handleChange = (e: React.KeyboardEvent) => {
-    const usernameVal: Form["username"] = usernameRef.current.value;
-    const passwordVal: Form["password"] = passwordRef.current.value;
-    setUsername(usernameVal);
-    setPassword(passwordVal);
-  };
-
   return (
     <div className="login-form">
       <form
@@ -69,26 +65,10 @@ const LoginForm = (props: Props) => {
         }}
       >
         <label>Username</label>
-        <input
-          required
-          ref={usernameRef}
-          onKeyUp={(e) => {
-            handleChange(e);
-          }}
-          type="text"
-          name="username"
-        />
+        <input required ref={usernameRef} type="text" name="username" />
 
         <label>Password</label>
-        <input
-          required
-          ref={passwordRef}
-          onKeyUp={(e) => {
-            handleChange(e);
-          }}
-          type="password"
-          name="password"
-        />
+        <input required ref={passwordRef} type="password" name="password" />
         <button type="submit">Login</button>
         {message && <p>{message}</p>}
       </form>
