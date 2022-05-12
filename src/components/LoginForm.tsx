@@ -31,7 +31,7 @@ const LoginForm = (props: Props) => {
           if (res.status === 200 && res.statusText === "OK") {
             if (data.userExists && data.passWordValid) {
               // Successful login
-              document.cookie = "accessToken=" + data.accessToken;
+              localStorage.setItem("accessToken", data.accessToken.toString());
               window.location.reload();
             }
             if (data.userExists && !data.passWordValid) {

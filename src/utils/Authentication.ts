@@ -1,22 +1,22 @@
 import axios from "axios";
 
-const getToken = (cookieID: string) => {
-  const name = cookieID + "=";
-  const decodedCookie = decodeURIComponent(document.cookie);
-  const ca = decodedCookie.split(";");
-  for (let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) === " ") {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) === 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-};
+// const getToken = (cookieID: string) => {
+//   const name = cookieID + "=";
+//   const decodedCookie = decodeURIComponent(document.cookie);
+//   const ca = decodedCookie.split(";");
+//   for (let i = 0; i < ca.length; i++) {
+//     let c = ca[i];
+//     while (c.charAt(0) === " ") {
+//       c = c.substring(1);
+//     }
+//     if (c.indexOf(name) === 0) {
+//       return c.substring(name.length, c.length);
+//     }
+//   }
+//   return "";
+// };
 
-const accessToken: string = getToken("accessToken");
+const accessToken: string = localStorage.getItem("accessToken") || "";
 
 // Check if user is logged in
 const auth: () => Promise<

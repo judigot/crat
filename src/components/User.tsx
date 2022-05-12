@@ -4,6 +4,8 @@ interface Props {
   payload?: { [key: string]: string };
 }
 
+const accessToken: string = localStorage.getItem("accessToken") || "";
+
 const User = (props: Props) => {
   const user = props.payload;
 
@@ -15,7 +17,7 @@ const User = (props: Props) => {
         {},
         {
           headers: {
-            Authorization: `Bearer toookeeeen`,
+            Authorization: `Bearer ${accessToken}`,
           },
         }
       )
@@ -27,7 +29,7 @@ const User = (props: Props) => {
         }) => {
           const data: { [key: string]: boolean } = res.data;
           if (res.status === 200 && res.statusText === "OK") {
-            document.cookie = "accessToken=";
+            localStorage.removeItem("accessToken");
             window.location.reload();
           }
         }
